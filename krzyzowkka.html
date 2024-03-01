@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krzyżówka</title>
+    <style>
+        body {
+            background-image: url('serek.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            font-family: Arial, sans-serif;
+            color: white;			
+    </style>
+</head>
+<body>
+    <h1>Krzyżówka</h1>
+    <form id="crossword-form">
+        <!-- Wprowadź pytania i pola krzyżówki tutaj -->
+        <!-- Na przykład: -->
+        <label for="question1">1. Nazwisko "kolegi" ktory jest serem gouda</label>
+        <input type="text" name="cell1" id="question1" maxlength="8" value="">
+        <br>
+        <label for="question2">2. Stolica Polski:</label>
+        <input type="text" name="cell2" id="question2" maxlength="8" value="">
+        <br>
+		<label for="question3">3. Jajko w języku angielskim</label>
+        <input type="text" name="cell3" id="question3" maxlength="3" value="">
+		<br>
+		<label for="question4">4. Podaj nazwe: To tradycyjny, farmerski, twardy ser w kształcie głazu pokryty satynową, naturalną skórką</label>
+        <input type="text" name="cell4" id="question4" maxlength="6" value="">
+        <!-- ... -->
+        <button type="submit">Sprawdź</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+        document.getElementById("crossword-form").addEventListener("submit", function (event) {
+            event.preventDefault();
+            const answers = {
+                cell1: "Synowiec",
+                cell2: "Warszawa",
+				cell3: "Egg",
+				cell4: "Leyden",               
+            };
+
+            const userAnswers = {};
+            const formElements = event.target.elements;
+            for (const element of formElements) {
+                if (element.tagName === "INPUT" && element.type === "text") {
+                    userAnswers[element.name] = element.value.toUpperCase();
+                }
+            }
+
+            let isCorrect = true;
+            for (const cell in answers) {
+                if (userAnswers[cell] !== answers[cell]) {
+                    isCorrect = true;
+                    break;
+                }
+            }
+
+            const resultDiv = document.getElementById("result");
+            if (isCorrect) {
+                resultDiv.textContent = "Gratulacje! Hasło to: CWEL";
+            } else {
+                resultDiv.textContent = "Spróbuj jeszcze raz.";
+            }
+        });
+    </script>
+</body>
+</html>
